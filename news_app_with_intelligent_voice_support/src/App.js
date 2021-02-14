@@ -10,6 +10,7 @@ const alanKey = 'c642ce9329686c352c24d08a284376172e956eca572e1d8b807a3e2338fdd0d
 const App = () => {
 
   const [newsArticles, setNewsArticles] = useState([]);
+  const [activeArticle, setActiveArticle] = useState(-1);
 
   const classes = useStyles();
 
@@ -19,7 +20,10 @@ const App = () => {
       onCommand: ({ command, articles }) => {
         if(command === 'newHeadlines'){
           setNewsArticles(articles);
+        } else if(command === 'highlight') {
+          setActiveArticle((prevActiveArticle) => prevActiveArticle + 1);
         }
+
       }
     })
   },[])
@@ -29,7 +33,7 @@ const App = () => {
       <div className={classes.logoContainer}>
         <img src={alan} className={classes.alanLogo}/>
       </div>
-      <NewsCards articles={newsArticles} />
+      <NewsCards articles={newsArticles} activeArticle={activeArticle} />
     </div>
   )
 }
